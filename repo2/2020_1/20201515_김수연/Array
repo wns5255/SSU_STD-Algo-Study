@@ -1,0 +1,26 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main() 
+{
+	string array[5][5]
+	{
+		{"20201111", "김모양"},
+		{"20201212", "김네모"},
+		{"20201313", "김동그라미"},
+		{"20201414", "김세모"},
+		{"20201515", "김수연"}
+
+	};
+	
+	for (int i = 0; i < 5; i++) {
+		for (int k = 0; k < 5; k++) {
+			cout << array[i][k]<<" ";
+
+		}
+		cout << endl << endl;
+	}
+	
+	return 0;
+}

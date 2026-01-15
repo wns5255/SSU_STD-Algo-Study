@@ -1,0 +1,27 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<vector<int>> board, vector<int> moves) {
+    int answer = 0, count=0;
+    vector<int> box;
+    for(int j=0; j<moves.size(); j++){
+        count = moves[j]-1;
+        for(int i=0; i<board.size(); i++){
+            if(board[i][count] !=0 ){
+                box.push_back(board[i][count]);
+                board[i][count] = 0;
+                if(box.size()>1){
+                     if(box.back() == box[box.size()-2]){
+                         box.pop_back();
+                         box.pop_back();
+                         answer += 2;
+                     }
+                 }   
+                break;
+            } 
+        }
+    }
+    return answer;
+}

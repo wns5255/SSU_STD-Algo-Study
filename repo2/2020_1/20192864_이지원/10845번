@@ -1,0 +1,177 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Node {
+public:
+	Node(const int data, Node* prev, Node* next);
+
+	int getData() const;
+	Node* getPrev() const;
+	Node* getNext() const;
+
+	void setData(const int data);
+	void setPrev(Node* node);
+	void setNext(Node* node);
+
+private:
+	int data;
+	Node* prev;
+	Node* next;
+};
+
+Node::Node(const int data, Node* prev = nullptr, Node* next = nullptr) {
+	this->data = data;
+	this->prev = prev;
+	this->next = next;
+}
+
+int Node::getData() const {
+	return data;
+}
+
+Node* Node::getPrev() const {
+	return prev;
+}
+
+Node* Node::getNext() const {
+	return next;
+}
+
+
+void Node::setData(const int data) {
+	this->data = data;
+}
+
+void Node::setPrev(Node* prev) {
+	this->prev = prev;
+}
+
+void Node::setNext(Node* next) {
+	this->next = next;
+}
+
+
+class Queue
+{
+public:
+	Queue();
+	~Queue();
+
+	int empty() const;
+	int size() const;
+	int front() const;
+	int back() const;
+	void push(const int data);
+	int pop();
+
+	void display() const;
+
+private:
+	Node* headNode;
+	Node* tailNode;
+	int dataSize;
+};
+
+
+Queue::Queue()
+{
+	headNode = nullptr;
+	tailNode = nullptr;
+	dataSize = 0;
+}
+
+Queue::~Queue()
+{
+	while (!empty()) {
+		pop();
+	}
+}
+
+int Queue::empty() const
+{
+	if (dataSize == 0)
+		return 1;
+	else
+		return 0;
+}
+
+int Queue::size() const
+{
+	return dataSize;
+}
+
+int Queue::front() const
+{
+	if (empty()) {
+		return -1;
+	}
+	return headNode->getData();
+}
+
+int Queue::back() const
+{
+	if (empty()) {
+		return -1;
+	}
+	return tailNode->getData();
+}
+
+void Queue::push(const int data)
+{
+	if (empty()) {
+		headNode = tailNode = new Node(data);
+		dataSize++;
+		return;
+	}
+	Node* node = new Node(data, tailNode);
+	dataSize++;
+	tailNode->setNext(node);
+	tailNode = node;
+}
+
+int Queue::pop()
+{
+	if (empty())
+		return -1;
+
+	int frontData = front();
+	Node* node = headNode;
+	headNode = headNode->getNext();
+	if (headNode != nullptr) {
+		headNode->setPrev(nullptr);
+	}
+	delete node;
+	dataSize--;
+	return frontData;
+}
+
+int main()
+{
+	Queue que;
+	int count;
+	cin >> count;
+	cin.ignore();
+	
+	for (int i = 0; i < count; i++)
+	{
+		string whatQueue;
+		cin >> whatQueue;
+		if (whatQueue == "push") {
+			int number;
+			cin >> number;
+			que.push(number);
+		}
+		else if (whatQueue == "front")
+			cout << que.front() << endl;
+		else if (whatQueue == "back")
+			cout << que.back() << endl;
+		else if (whatQueue == "empty")
+			cout << que.empty() << endl;
+		else if (whatQueue == "pop")
+			cout << que.pop() << endl;
+		else if (whatQueue == "size")
+			cout << que.size() << endl;
+	}
+	return 0;
+}

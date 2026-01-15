@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+#define max 10001
+
+class Queue {
+private:
+	int queue[max];
+	int head = 0;
+	int rear = 0;
+  
+public:
+	void Push(int x) {
+		queue[rear++] = x;
+	}
+
+	int Pop() {
+		if (Empty()) return -1;
+		else return queue[head++];
+	}
+
+	int Size() {
+		return rear - head;
+	}
+
+	int Empty() {
+		return head == rear;
+	}
+
+	int Front() {
+		if (Empty()) return -1;
+		else return queue[head];
+	}
+
+	int Back() {
+		if (Empty()) return -1;
+		else return queue[rear - 1];
+	}
+
+
+}; 
+
+
+
+int main() {
+
+	Queue qe;
+	int n = 0, count = 0, result = 0;
+	string k;
+	cin >> count;
+	for (int i = 0; i < count; i++) {
+		cin >> k;
+		if (k == "push") {
+			cin >> n;
+			qe.Push(n);
+		}
+		else if (k == "front") {
+			result = qe.Front();
+		}
+		else if (k == "back") {
+			result = qe.Back();
+		}
+		else if (k == "size") {
+			result = qe.Size();
+		}
+		else if (k == "empty") {
+			result = qe.Empty();
+		}
+		else if (k == "pop") {
+			result = qe.Pop();
+		}
+
+		if (k != "push")
+			cout << result << endl;
+	}
+	return 0;
+}

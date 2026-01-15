@@ -1,0 +1,69 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Queue {
+private:
+	int queue[10000];
+	int front=0, rear=0, capacity=0;
+public:
+	void push(int x) {
+		queue[rear] = x;
+		rear++;
+		capacity++;
+	}
+	int pop() {
+		if (empty()) { return -1; }
+		else {
+			int num = queue[front];
+			front++;
+			capacity--;
+			return num;
+		}
+	}
+	int size() {
+		return capacity;
+	}
+	int empty() {
+		if(front == rear) return 1;
+		else return 0;
+	}
+	int Front() {
+		if (empty()) { return -1; }
+		else return queue[front];
+	}
+	int back() {
+		if (empty()) { return -1; }
+		else return queue[rear-1];
+	}
+};
+int main(void) {
+	int num;
+	cin >> num;
+	string str;
+	Queue queue;
+	for (int i = 0; i < num; i++) {
+		cin >> str;
+		if (str == "push") {
+			int x;
+			cin >> x;
+			queue.push(x);
+		}
+		if (str == "pop") {
+			cout<<queue.pop()<<endl;
+		}
+		if(str=="size"){
+			cout << queue.size() << endl;
+		}
+		if (str == "empty") {
+			cout << queue.empty() << endl;
+		}
+		if (str == "front") {
+			cout << queue.Front() << endl;
+		}
+		if (str == "back") {
+			cout << queue.back() << endl;
+		}
+	}
+	return 0;
+}

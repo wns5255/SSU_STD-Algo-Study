@@ -1,0 +1,38 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int solution(vector<vector<int>> board, vector<int> moves) {
+	int answer = 0;
+	vector<int> selected_item;
+	for (int i = 0; i < moves.size(); i++) {
+		int index = moves[i] -1;
+		for (int j = 0; j < board[0].size(); j++) {
+			if (board[j][index] == 0)
+				continue;
+			else {
+				selected_item.push_back(board[j][index]);
+				board[j][index] = 0;
+				break;
+			}
+		}
+	}
+	
+	while (true) {
+		int cnt = 0;
+		for (int i = 0; i < selected_item.size(); i++) {
+			int item = selected_item[i];
+			if ((i + 1) < selected_item.size()) {
+				if (item == selected_item[i + 1]) {
+					cnt++;
+					selected_item.erase(selected_item.begin() + i, selected_item.begin() + i + 2);
+					answer += 2;
+				}
+			}
+		}
+		if (cnt == 0)
+			break;
+	}
+	return answer;
+}
